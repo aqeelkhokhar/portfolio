@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Briefcase/experience icon -->
+  <rect x="10" y="18" width="44" height="36" rx="4" fill="#8B5CF6" stroke="#7C3AED" stroke-width="2"/>
+  <path d="M24 18V14C24 11.7909 25.7909 10 28 10H36C38.2091 10 40 11.7909 40 14V18" stroke="#7C3AED" stroke-width="2"/>
+  <rect x="28" y="30" width="8" height="8" rx="2" fill="white"/>
+  <path d="M16 36H24" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  <path d="M40 36H48" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  <path d="M16 42H48" stroke="white" stroke-width="2" stroke-linecap="round"/>
+</svg>

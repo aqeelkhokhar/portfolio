@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="200" cy="200" r="200" fill="#E2E8F0"/>
+  
+  <!-- Stylized abstract face silhouette - professional looking -->
+  <path d="M200 120C177.909 120 160 137.909 160 160C160 182.091 177.909 200 200 200C222.091 200 240 182.091 240 160C240 137.909 222.091 120 200 120Z" fill="#94A3B8"/>
+  <path d="M120 280C120 235.817 155.817 200 200 200C244.183 200 280 235.817 280 280V320H120V280Z" fill="#94A3B8"/>
+  
+  <!-- Professional details like glasses or suit -->
+  <path d="M170 155C170 150 175 150 180 150H220C225 150 230 150 230 155" stroke="#334155" stroke-width="3" stroke-linecap="round"/>
+  <path d="M140 290H260" stroke="#334155" stroke-width="4" stroke-linecap="round"/>
+  
+  <!-- Abstract representation of hair/hairline -->
+  <path d="M160 140C160 140 170 110 200 110C230 110 240 140 240 140" fill="#475569"/>
+</svg>
