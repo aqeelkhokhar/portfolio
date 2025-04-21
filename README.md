@@ -223,14 +223,21 @@ This approach allows for a smooth development experience locally while leveragin
 
    - Choose the User Type "External" and click "Create".
    - Fill in the required fields such as App name, User support email, and Developer contact information.
-   - Click "Save and Continue" to proceed through the scopes and test users sections. You can skip adding scopes for now if you are just testing.
+   - Click "Save and Continue" to proceed through the scopes section.
 
-5. **Create OAuth 2.0 Credentials**:
+5. **Add Test Users**:
+
+   - In the left sidebar, under the "Audience" section, scroll down to the "Test users" area.
+   - Click on "Add users".
+   - Enter the email addresses of the users you want to add as test users (including your own).
+   - Click "Save".
+
+6. **Create OAuth 2.0 Credentials**:
 
    - After saving the consent screen, go to "APIs & Services" > "Credentials".
    - Click on "Create Credentials" and select "OAuth client ID".
 
-6. **Configure the OAuth Client**:
+7. **Configure the OAuth Client**:
 
    - Choose the application type (e.g., Web application).
    - Fill in the required fields:
@@ -239,11 +246,11 @@ This approach allows for a smooth development experience locally while leveragin
      - **Authorized JavaScript origins**: Add the origin of your application (e.g., `http://localhost:3000`).
    - Click "Create".
 
-7. **Download the Client Credentials**:
+8. **Download the Client Credentials**:
 
    - After creating the client, you will see a dialog with your client ID and client secret. You can also download the credentials as a JSON file for use in your application.
 
-8. **Use the Client in Your Application**:
+9. **Use the Client in Your Application**:
    - Use the downloaded client credentials to authenticate requests to the Google Calendar API.
 
 ## 📅 Sharing Your Personal Google Calendar
