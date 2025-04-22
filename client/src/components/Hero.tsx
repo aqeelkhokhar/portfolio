@@ -28,7 +28,10 @@ export default function Hero({
   };
 
   return (
-    <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 pt-20">
+    <section
+      id="hero"
+      className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 pt-20"
+    >
       <div className="max-w-6xl mx-auto">
         <div className="grid md:grid-cols-5 gap-8 items-center">
           <div className="md:col-span-3 animate-fadeIn">

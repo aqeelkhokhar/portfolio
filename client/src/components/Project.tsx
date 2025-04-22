@@ -14,7 +14,8 @@ import { Projects } from "../types";
 
 export default function Project({ projects }: { projects: Projects[] }) {
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
-  const [visibleProjects, setVisibleProjects] = useState(2); // Start with 2 visible projects
+  const initialVisibleValue: number = 2;
+  const [visibleProjects, setVisibleProjects] = useState(initialVisibleValue);
   const fallbackSrc: string =
     "https://images.unsplash.com/photo-1551033406-611cf9a28f67?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80";
 
@@ -28,6 +29,10 @@ export default function Project({ projects }: { projects: Projects[] }) {
 
   const loadMoreProjects = () => {
     setVisibleProjects((prev) => prev + 2); // Load 2 more projects
+  };
+
+  const showLessProjects = () => {
+    setVisibleProjects((prev) => Math.max(prev - 2, 2)); // Show 2 projects minimum
   };
 
   return (
@@ -137,14 +142,19 @@ export default function Project({ projects }: { projects: Projects[] }) {
           ))}
         </div>
 
-        {/* Show More Button */}
-        {visibleProjects < projects.length && (
-          <div className="text-center mt-8">
+        {/* Show More / Show Less Button */}
+        <div className="text-center mt-8 flex justify-center space-x-4">
+          {visibleProjects < projects.length && (
             <Button onClick={loadMoreProjects} className="px-6 py-3">
               Show More
             </Button>
-          </div>
-        )}
+          )}
+          {visibleProjects > initialVisibleValue && (
+            <Button onClick={showLessProjects} className="px-6 py-3">
+              Show Less
+            </Button>
+          )}
+        </div>
       </div>
 
       {/* Project Detail Dialog */}

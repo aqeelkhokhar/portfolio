@@ -4,7 +4,6 @@ import { useScrollToSection } from "@/hooks/useScrollToSection";
 import { cn } from "@/lib/utils";
 import { MenuIcon, MoonIcon, SunIcon, XIcon } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Link } from "wouter";
 import { PersonalInfo } from "../types";
 
 interface NavItem {
@@ -60,24 +59,25 @@ export default function Navbar({
         <div className="flex justify-between items-center py-4">
           {personalInfo?.name && (
             <div className="flex items-center">
-              <Link href="/">
-                <span className="font-heading font-bold text-xl text-primary dark:text-primary-400 cursor-pointer">
-                  {personalInfo?.name}
-                </span>
-              </Link>
+              <button
+                onClick={() => handleNavItemClick("hero")}
+                className="font-heading font-bold text-xl text-primary dark:text-white cursor-pointer"
+              >
+                {personalInfo?.name}
+              </button>
             </div>
           )}
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8">
+          <nav className="hidden md:flex space-x-1">
             {navItems.map((item) => (
               <button
                 key={item.sectionId}
                 onClick={() => handleNavItemClick(item.sectionId)}
                 className={cn(
-                  "font-medium transition duration-150",
+                  "font-medium transition duration-150 px-4 py-2",
                   activeSection === item.sectionId
-                    ? "text-primary dark:text-primary-400 bg-gray-200 dark:bg-gray-700 rounded-md"
+                    ? "text-white dark:text-gray-900 bg-gray-600 dark:bg-gray-300 rounded-md"
                     : "text-gray-800 dark:text-gray-200 hover:text-primary dark:hover:text-primary-400"
                 )}
               >
