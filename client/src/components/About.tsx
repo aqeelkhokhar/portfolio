@@ -5,7 +5,7 @@ export default function About({ summary }: { summary: string }) {
       className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 scroll-mt-20"
     >
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8">
           <h2 className="font-heading text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
             About Me
           </h2>

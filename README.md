@@ -148,13 +148,13 @@ This approach allows for a smooth development experience locally while leveragin
 
 5. **Get Service Account Details**:
 
-   - From the downloaded JSON file, note the `client_email` and `private_key`
+   - From the downloaded JSON file, note the `GOOGLE_SERVICE_ACCOUNT_EMAIL` and `GOOGLE_PRIVATE_KEY`
    - These values will be used in your `.env` file
 
 6. **Create and Share Google Sheet**:
    - Create a new Google Sheet with the tabs listed in the setup instructions
    - Get the Sheet ID from the URL (the long string between /d/ and /edit in the URL)
-   - Share the sheet with the service account email (client_email) with Editor permissions
+   - Share the sheet with the service account email (GOOGLE_SERVICE_ACCOUNT_EMAIL) with Editor permissions
 
 ### Gmail Setup for Nodemailer
 
@@ -178,32 +178,33 @@ This approach allows for a smooth development experience locally while leveragin
 
 2. **Select or Create a Project**:
 
-   - Choose an existing project or create a new one by clicking on the project dropdown at the top of the page.
+   - Choose an existing project.
 
 3. **Enable Google Calendar API**:
 
    - Navigate to "APIs & Services" > "Library".
    - Search for "Google Calendar API" and enable it.
 
-4. **Create Credentials**:
+4. **Open Google Calendar**:
 
-   - Go to "APIs & Services" > "Credentials".
-   - Click on "Create Credentials" and select "Service Account".
+   - Go to [Google Calendar](https://calendar.google.com/).
 
-5. **Fill in Service Account Details**:
+5. **Select Your Calendar**:
 
-   - Provide a name and description for your service account.
-   - Assign roles as needed (e.g., "Editor" for Google Calendar API).
+   - In the left sidebar, find your personal calendar under "My calendars".
+   - Hover over the calendar name, click on the three dots (More options), and select "Settings and sharing".
 
-6. **Generate Key**:
+6. **Share with Specific People**:
 
-   - After creating the service account, go to the "Keys" tab.
-   - Click "Add Key" > "Create New Key" and select JSON format.
-   - Download the key file and keep it secure.
+   - Scroll down to the "Share with" section.
+   - Click on "Add people and Groups".
+   - Enter the email address of the service you have created in the google console.
+   - Choose the permissions you want to grant (e.g., "See all event details", "Make changes to events", or "Make changes and manage sharing").
+   - Click "Send".
 
-7. **Share Calendar Resources**:
+7. **Save Changes**:
 
-   - If you need to access specific calendars, share those calendars with the service account email (found in the JSON key file).
+   - Ensure all changes are saved before exiting the settings.
 
 ## 🌐 Setting Up OAuth Consent Screen and Creating Client
 
@@ -221,72 +222,38 @@ This approach allows for a smooth development experience locally while leveragin
 
 4. **Configure the Consent Screen**:
 
-   - Choose the User Type "External" and click "Create".
+   - Click on "Get Started" if it's your first configuration.
    - Fill in the required fields such as App name, User support email, and Developer contact information.
+   - Choose the User Type "External" and click "Create".
    - Click "Save and Continue" to proceed through the scopes section.
 
-5. **Add Test Users**:
+5. **Configure the OAuth Client**:
+
+   - Choose the application type (e.g., Web application).
+   - Fill in the required fields:
+     - **Name**: Give your client a name.
+   - Click "Create".
+
+6. **Add Test Users**:
 
    - In the left sidebar, under the "Audience" section, scroll down to the "Test users" area.
    - Click on "Add users".
    - Enter the email addresses of the users you want to add as test users (including your own).
    - Click "Save".
 
-6. **Create OAuth 2.0 Credentials**:
+7. **Configure site URL**:
 
-   - After saving the consent screen, go to "APIs & Services" > "Credentials".
-   - Click on "Create Credentials" and select "OAuth client ID".
-
-7. **Configure the OAuth Client**:
-
-   - Choose the application type (e.g., Web application).
-   - Fill in the required fields:
-     - **Name**: Give your client a name.
-     - **Authorized redirect URIs**: Add the URI where your application will handle responses from Google (e.g., `http://localhost:3000/auth/google/callback`).
-     - **Authorized JavaScript origins**: Add the origin of your application (e.g., `http://localhost:3000`).
-   - Click "Create".
+   - Click on "Client" from left menu.
+   - Find your client and click on it.
+   - **Authorized redirect URIs**: Add the URI where your application will handle responses from Google (e.g., `http://localhost:3000/auth/google/callback`).
+   - **Authorized JavaScript origins**: Add the origin of your application (e.g., `http://localhost:3000`).
 
 8. **Download the Client Credentials**:
 
    - After creating the client, you will see a dialog with your client ID and client secret. You can also download the credentials as a JSON file for use in your application.
 
 9. **Use the Client in Your Application**:
-   - Use the downloaded client credentials to authenticate requests to the Google Calendar API.
-
-## 📅 Sharing Your Personal Google Calendar
-
-8. **Open Google Calendar**:
-
-   - Go to [Google Calendar](https://calendar.google.com/).
-
-9. **Select Your Calendar**:
-
-   - In the left sidebar, find your personal calendar under "My calendars".
-   - Hover over the calendar name, click on the three dots (More options), and select "Settings and sharing".
-
-10. **Share with Specific People**:
-
-    - Scroll down to the "Share with specific people" section.
-    - Click on "Add people".
-    - Enter the email address of the person you want to share your calendar with.
-    - Choose the permissions you want to grant (e.g., "See all event details", "Make changes to events", or "Make changes and manage sharing").
-    - Click "Send".
-
-11. **Share Publicly (Optional)**:
-
-    - If you want to make your calendar public, scroll to the "Access permissions for events" section.
-    - Check the box for "Make available to public" and confirm the warning.
-
-12. **Save Changes**:
-
-    - Ensure all changes are saved before exiting the settings.
-
-13. **Use the Client in Your Application**:
-    - Install the Google Calendar client library in your project:
-      ```bash
-      npm install @googleapis/calendar
-      ```
-    - Initialize the client in your code using the downloaded JSON key file.
+   - Use the downloaded client credentials to authenticate requests to the Google Calendar API from the "JSON" into your ".env".
 
 ## 📱 Usage
 

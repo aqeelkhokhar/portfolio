@@ -53,7 +53,7 @@ export default function Navbar({
     <header
       className={cn(
         "fixed top-0 left-0 right-0 bg-white dark:bg-gray-800 z-50 transition-all duration-300",
-        isScrolled ? "shadow-md" : ""
+        isScrolled ? "shadow-md dark:shadow-lg" : ""
       )}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -77,8 +77,8 @@ export default function Navbar({
                 className={cn(
                   "font-medium transition duration-150",
                   activeSection === item.sectionId
-                    ? "text-primary dark:text-primary-400"
-                    : "hover:text-primary dark:hover:text-primary-400"
+                    ? "text-primary dark:text-primary-400 bg-gray-200 dark:bg-gray-700 rounded-md"
+                    : "text-gray-800 dark:text-gray-200 hover:text-primary dark:hover:text-primary-400"
                 )}
               >
                 {item.label}
