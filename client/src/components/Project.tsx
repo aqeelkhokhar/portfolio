@@ -14,6 +14,7 @@ import { Projects } from "../types";
 
 export default function Project({ projects }: { projects: Projects[] }) {
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
+  const [visibleProjects, setVisibleProjects] = useState(2); // Start with 2 visible projects
   const fallbackSrc: string =
     "https://images.unsplash.com/photo-1551033406-611cf9a28f67?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80";
 
@@ -23,6 +24,10 @@ export default function Project({ projects }: { projects: Projects[] }) {
 
   const closeProjectDetails = () => {
     setSelectedProject(null);
+  };
+
+  const loadMoreProjects = () => {
+    setVisibleProjects((prev) => prev + 2); // Load 2 more projects
   };
 
   return (
@@ -35,11 +40,11 @@ export default function Project({ projects }: { projects: Projects[] }) {
           <h2 className="font-heading text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
             Professional Projects
           </h2>
-          <div className="w-20 h-1 bg-primary-500 mx-auto rounded"></div>
+          <div className="w-20 h-1 bg-primary-500 mx-auto rounded" />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {projects.map((project, index) => (
+          {projects.slice(0, visibleProjects).map((project, index) => (
             <div
               onClick={() => openProjectDetails(index)}
               key={index}
@@ -131,6 +136,15 @@ export default function Project({ projects }: { projects: Projects[] }) {
             </div>
           ))}
         </div>
+
+        {/* Show More Button */}
+        {visibleProjects < projects.length && (
+          <div className="text-center mt-8">
+            <Button onClick={loadMoreProjects} className="px-6 py-3">
+              Show More
+            </Button>
+          </div>
+        )}
       </div>
 
       {/* Project Detail Dialog */}
