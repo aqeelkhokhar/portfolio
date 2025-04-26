@@ -91,7 +91,7 @@ export default function Project({ projects }: { projects: Projects[] }) {
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="h-8 w-8 rounded-full hover:text-primary-500 absolute top-2 right-2 bg-white/80 backdrop-blur z-10"
+                      className="h-8 w-8 rounded-full hover:text-primary-200 absolute top-2 right-2 bg-gray/60 backdrop-blur z-10"
                       onClick={(e) => {
                         e.stopPropagation();
                         openProjectDetails(currentProjectIndex + index);
