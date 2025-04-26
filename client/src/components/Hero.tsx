@@ -30,13 +30,13 @@ export default function Hero({
   return (
     <section
       id="hero"
-      className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 pt-20"
+      className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 pt-20"
     >
       <div className="max-w-6xl mx-auto">
         <div className="grid md:grid-cols-5 gap-8 items-center">
           <div className="md:col-span-3 animate-fadeIn">
             <h1 className="font-heading text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-              <span className="text-primary dark:text-primary-400">
+              <span className="text-primary dark:text-white">
                 {personalInfo?.title}
               </span>
             </h1>

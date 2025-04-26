@@ -9,7 +9,7 @@ export default function Experience({
   return (
     <section
       id="experience"
-      className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 scroll-mt-20"
+      className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 scroll-mt-20"
     >
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-8">
@@ -23,7 +23,7 @@ export default function Experience({
           {workExperience.map((job: Jobs, index: number) => (
             <div
               key={index}
-              className="timeline-item relative pl-12 pb-12 last:pb-0"
+              className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed mb-6 last:mb-0"
             >
               <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 transition-all duration-300 hover:shadow-lg">
                 <div className="flex justify-between flex-wrap gap-2">

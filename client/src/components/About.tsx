@@ -2,7 +2,7 @@ export default function About({ summary }: { summary: string }) {
   return (
     <section
       id="about"
-      className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 scroll-mt-20"
+      className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 scroll-mt-20"
     >
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-8">
