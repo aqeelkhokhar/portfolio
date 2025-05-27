@@ -1,4 +1,5 @@
 import About from "@/components/About";
+import AnimatedSection from "@/components/AnimatedSection";
 import Contact from "@/components/Contact";
 import Education from "@/components/Education";
 import Experience from "@/components/Experience";
@@ -14,7 +15,6 @@ import { usePortfolio } from "../hooks/usePortfolioData";
 export default function Home() {
   const { personalInfo, experience, skills, projects, education, socialLinks } =
     usePortfolio();
-
   const activeSection = useActiveSection();
 
   return (
@@ -24,17 +24,43 @@ export default function Home() {
       )}
       <main className="pt-20 pb-16">
         {personalInfo && (
-          <Hero socialLinks={socialLinks} personalInfo={personalInfo} />
+          <AnimatedSection>
+            <Hero socialLinks={socialLinks} personalInfo={personalInfo} />
+          </AnimatedSection>
         )}
-        {personalInfo?.summary && <About summary={personalInfo.summary} />}
-        {experience?.length > 0 && <Experience experience={experience} />}
-        {skills?.length > 0 && <Skills skills={skills} />}
-        {projects?.length > 0 && <Project projects={projects} />}
-        {education?.length > 0 && <Education education={education} />}
+        {personalInfo?.summary && (
+          <AnimatedSection>
+            <About summary={personalInfo.summary} />
+          </AnimatedSection>
+        )}
+        {experience?.length > 0 && (
+          <AnimatedSection>
+            <Experience experience={experience} />
+          </AnimatedSection>
+        )}
+        {skills?.length > 0 && (
+          <AnimatedSection>
+            <Skills skills={skills} />
+          </AnimatedSection>
+        )}
+        {projects?.length > 0 && (
+          <AnimatedSection>
+            <Project projects={projects} />
+          </AnimatedSection>
+        )}
+        {education?.length > 0 && (
+          <AnimatedSection>
+            <Education education={education} />
+          </AnimatedSection>
+        )}
         {personalInfo && (
-          <Contact socialLinks={socialLinks} personalInfo={personalInfo} />
+          <AnimatedSection>
+            <Contact socialLinks={socialLinks} personalInfo={personalInfo} />
+          </AnimatedSection>
         )}
-        <AppointmentBooking />
+        <AnimatedSection>
+          <AppointmentBooking />
+        </AnimatedSection>
       </main>
       {socialLinks?.length > 0 && personalInfo && (
         <Footer socialLinks={socialLinks} personalInfo={personalInfo} />

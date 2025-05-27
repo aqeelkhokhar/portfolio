@@ -22,10 +22,16 @@ export default function Skills({ skills }: { skills: SkillCategories[] }) {
           {skills.map((skillCategory, index) => (
             <div
               key={index}
-              className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 transition-all duration-300 hover:shadow-lg"
+              className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 
+                       transform transition-all duration-300 ease-in-out 
+                       hover:scale-105 hover:shadow-xl hover:bg-primary-50/50 dark:hover:bg-primary-900/20
+                       border border-transparent hover:border-primary-200 dark:hover:border-primary-800"
             >
               <div className="flex items-center mb-6">
-                <div className="w-12 h-12 flex items-center justify-center bg-primary-100 dark:bg-primary-700/30 text-primary-600 dark:text-primary-500 rounded-lg mr-4">
+                <div
+                  className="w-12 h-12 flex items-center justify-center bg-primary-100 dark:bg-primary-700/30 text-primary-600 dark:text-primary-500 rounded-lg mr-4
+                             transform transition-all duration-300 ease-in-out group-hover:scale-110"
+                >
                   {getIconComponent(icons, skillCategory.icon, "text-2xl")}
                 </div>
                 <h3 className="font-heading text-xl font-semibold text-gray-900 dark:text-white">
