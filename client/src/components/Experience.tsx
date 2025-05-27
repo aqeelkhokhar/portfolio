@@ -42,15 +42,55 @@ export default function Experience({
                   {job.company} - {job.location}
                 </p>
                 <ul className="space-y-2">
-                  {job.responsibilities.map((responsibility, i) => (
-                    <li
-                      key={i}
-                      className="flex gap-2 text-gray-700 dark:text-gray-300"
-                    >
-                      <FaCheckCircle className="text-green-500 mt-1 flex-shrink-0" />
-                      <span>{responsibility}</span>
-                    </li>
-                  ))}
+                  {job.responsibilities.map((responsibility, i) => {
+                    if (!responsibility.trim()) return null;
+
+                    // Match **Heading:** rest of line
+                    const headingMatch = responsibility.match(
+                      /^\*\*(.+?):\*\*\s*(.*)$/
+                    );
+
+                    if (headingMatch) {
+                      return (
+                        <li
+                          key={i}
+                          className="flex gap-2 text-gray-700 dark:text-gray-300"
+                        >
+                          <span>
+                            <b>{headingMatch[1]}:</b> {headingMatch[2]}
+                          </span>
+                        </li>
+                      );
+                    }
+
+                    // Match **Heading** (no colon)
+                    if (
+                      responsibility.startsWith("**") &&
+                      responsibility.endsWith("**")
+                    ) {
+                      return (
+                        <li
+                          key={i}
+                          className="flex gap-2 text-gray-700 dark:text-gray-300"
+                        >
+                          <span>
+                            <b>{responsibility.replace(/\*\*/g, "")}</b>
+                          </span>
+                        </li>
+                      );
+                    }
+
+                    // Normal responsibility with check icon
+                    return (
+                      <li
+                        key={i}
+                        className="flex gap-2 text-gray-700 dark:text-gray-300"
+                      >
+                        <FaCheckCircle className="text-green-500 mt-1 flex-shrink-0" />
+                        <span>{responsibility}</span>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             </div>

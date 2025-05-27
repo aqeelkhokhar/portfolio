@@ -191,6 +191,7 @@ async function fetchPortfolioData(googleSheet) {
           period: row.get("period"),
           description: row.get("description"),
           highlights: row.get("highlights")?.split("\n") || [],
+          impacts: row.get("impacts")?.split("\n") || [],
           technologies: row.get("technologies")?.split(",") || [],
           role: row.get("role") || "",
           company: row.get("company") || "",

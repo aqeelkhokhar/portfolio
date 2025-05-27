@@ -38,6 +38,7 @@ export interface Projects {
   period: string;
   description: string;
   highlights: string[];
+  impacts: string[];
   role?: string;
   company?: string;
   technologies: string[];

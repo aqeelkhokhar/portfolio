@@ -91,7 +91,7 @@ export default function Project({ projects }: { projects: Projects[] }) {
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="h-8 w-8 rounded-full hover:text-primary-200 absolute top-2 right-2 bg-gray/60 backdrop-blur z-10"
+                      className="h-8 w-8 rounded-full hover:text-primary-500 absolute top-2 right-2 bg-white/80 backdrop-blur z-10"
                       onClick={(e) => {
                         e.stopPropagation();
                         openProjectDetails(currentProjectIndex + index);
@@ -278,20 +278,44 @@ export default function Project({ projects }: { projects: Projects[] }) {
 
             {/* Project highlights */}
             <div className="mb-6">
-              <h4 className="text-lg font-semibold mb-2">Key Achievements</h4>
+              <h4 className="text-lg font-semibold mb-2">Key Achievements:</h4>
               <ul className="space-y-2">
-                {projects[selectedProject].highlights.map((highlight, i) => (
-                  <li key={i} className="flex gap-3 items-start">
-                    <FaCheckCircle className="text-green-500 mt-1 flex-shrink-0" />
-                    <span dangerouslySetInnerHTML={{ __html: highlight }} />
-                  </li>
-                ))}
+                {projects[selectedProject].highlights.map((highlight, i) => {
+                  if (!highlight.trim()) return null;
+
+                  return (
+                    <li key={i} className="flex gap-3 items-start">
+                      {highlight && (
+                        <FaCheckCircle className="text-green-500 mt-1 flex-shrink-0" />
+                      )}
+                      <span dangerouslySetInnerHTML={{ __html: highlight }} />
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+            {/* Project impact */}
+            <div className="mb-6">
+              <h4 className="text-lg font-semibold mb-2">Impacts:</h4>
+              <ul className="space-y-2">
+                {projects[selectedProject]?.impacts?.map((impact, i) => {
+                  if (!impact.trim()) return null;
+
+                  return (
+                    <li key={i} className="flex gap-3 items-start">
+                      {impact && (
+                        <FaCheckCircle className="text-green-500 mt-1 flex-shrink-0" />
+                      )}
+                      <span dangerouslySetInnerHTML={{ __html: impact }} />
+                    </li>
+                  );
+                })}
               </ul>
             </div>
 
             {/* Technologies */}
             <div>
-              <h4 className="text-lg font-semibold mb-2">Technologies Used</h4>
+              <h4 className="text-lg font-semibold mb-2">Technologies Used:</h4>
               <div className="flex flex-wrap gap-2">
                 {projects[selectedProject].technologies.map((tech, i) => (
                   <span
