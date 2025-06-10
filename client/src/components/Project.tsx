@@ -6,6 +6,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { ImageWithFallback } from "@/components/ui/image-with-fallback";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { useState } from "react";
 import {
   FaChevronLeft,
@@ -20,13 +21,15 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Projects } from "../types";
 
 export default function Project({ projects }: { projects: Projects[] }) {
+  const isMobile = useIsMobile();
   const gridNumber: number = 2;
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
   const fallbackSrc: string =
     "https://images.unsplash.com/photo-1551033406-611cf9a28f67?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80";
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
   const [direction, setDirection] = useState<"left" | "right">("right");
-  const isAtEnd = currentProjectIndex + 2 >= projects.length;
+  const projectsPerPage = isMobile ? 1 : 2;
+  const isAtEnd = currentProjectIndex + projectsPerPage >= projects.length;
   const isAtStart = currentProjectIndex === 0;
 
   const openProjectDetails = (index: number) => {
@@ -40,14 +43,14 @@ export default function Project({ projects }: { projects: Projects[] }) {
   const nextProject = () => {
     if (!isAtEnd) {
       setDirection("right");
-      setCurrentProjectIndex((prevIndex) => prevIndex + 2);
+      setCurrentProjectIndex((prevIndex) => prevIndex + projectsPerPage);
     }
   };
 
   const prevProject = () => {
     if (!isAtStart) {
       setDirection("left");
-      setCurrentProjectIndex((prevIndex) => prevIndex - 2);
+      setCurrentProjectIndex((prevIndex) => prevIndex - projectsPerPage);
     }
   };
 
@@ -74,7 +77,7 @@ export default function Project({ projects }: { projects: Projects[] }) {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative">
           {projects
-            .slice(currentProjectIndex, currentProjectIndex + 2)
+            .slice(currentProjectIndex, currentProjectIndex + projectsPerPage)
             .map((project, index) => (
               <div
                 key={currentProjectIndex + index}
