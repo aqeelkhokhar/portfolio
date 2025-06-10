@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/dialog";
 import { ImageWithFallback } from "@/components/ui/image-with-fallback";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   FaChevronLeft,
   FaChevronRight,
@@ -28,9 +28,21 @@ export default function Project({ projects }: { projects: Projects[] }) {
     "https://images.unsplash.com/photo-1551033406-611cf9a28f67?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80";
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
   const [direction, setDirection] = useState<"left" | "right">("right");
+  const [isImageLoading, setIsImageLoading] = useState(false);
+  const [currentImage, setCurrentImage] = useState<string | null>(null);
   const projectsPerPage = isMobile ? 1 : 2;
   const isAtEnd = currentProjectIndex + projectsPerPage >= projects.length;
   const isAtStart = currentProjectIndex === 0;
+
+  // Preload image function
+  const preloadImage = (src: string) => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.src = src;
+      img.onload = resolve;
+      img.onerror = reject;
+    });
+  };
 
   const openProjectDetails = (index: number) => {
     setSelectedProject(index);
@@ -53,6 +65,59 @@ export default function Project({ projects }: { projects: Projects[] }) {
       setCurrentProjectIndex((prevIndex) => prevIndex - projectsPerPage);
     }
   };
+
+  const navigateToNextProject = async () => {
+    if (selectedProject !== null && selectedProject < projects.length - 1) {
+      setIsImageLoading(true);
+      const nextProject = projects[selectedProject + 1];
+      const nextImage = nextProject.images?.[0] || nextProject.image;
+
+      if (nextImage) {
+        try {
+          await preloadImage(nextImage);
+          setCurrentImage(nextImage);
+          setSelectedProject(selectedProject + 1);
+        } catch (error) {
+          console.error("Error preloading image:", error);
+          setSelectedProject(selectedProject + 1);
+        }
+      } else {
+        setSelectedProject(selectedProject + 1);
+      }
+      setIsImageLoading(false);
+    }
+  };
+
+  const navigateToPrevProject = async () => {
+    if (selectedProject !== null && selectedProject > 0) {
+      setIsImageLoading(true);
+      const prevProject = projects[selectedProject - 1];
+      const prevImage = prevProject.images?.[0] || prevProject.image;
+
+      if (prevImage) {
+        try {
+          await preloadImage(prevImage);
+          setCurrentImage(prevImage);
+          setSelectedProject(selectedProject - 1);
+        } catch (error) {
+          console.error("Error preloading image:", error);
+          setSelectedProject(selectedProject - 1);
+        }
+      } else {
+        setSelectedProject(selectedProject - 1);
+      }
+      setIsImageLoading(false);
+    }
+  };
+
+  // Update current image when project changes
+  useEffect(() => {
+    if (selectedProject !== null) {
+      const project = projects[selectedProject];
+      const image = project.images?.[0] || project.image;
+      setCurrentImage(image || null);
+    }
+  }, [selectedProject, projects]);
 
   const handleClick = (e: React.MouseEvent, index: number) => {
     if (e.target instanceof HTMLButtonElement) {
@@ -223,6 +288,36 @@ export default function Project({ projects }: { projects: Projects[] }) {
           onOpenChange={closeProjectDetails}
         >
           <DialogContent className="max-w-4xl max-h-[85vh] overflow-y-auto bg-white dark:bg-gray-800">
+            <div className="absolute top-1/2 -translate-y-1/2 left-4 z-50">
+              <Button
+                onClick={navigateToPrevProject}
+                variant="ghost"
+                size="icon"
+                disabled={selectedProject === 0}
+                className={`h-12 w-12 rounded-full bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm transition-all duration-300 ${
+                  selectedProject === 0
+                    ? "opacity-50 cursor-not-allowed"
+                    : "hover:text-primary-500 hover:scale-110 hover:shadow-lg"
+                }`}
+              >
+                <FaChevronLeft className="h-5 w-5" />
+              </Button>
+            </div>
+            <div className="absolute top-1/2 -translate-y-1/2 right-4 z-50">
+              <Button
+                onClick={navigateToNextProject}
+                variant="ghost"
+                size="icon"
+                disabled={selectedProject === projects.length - 1}
+                className={`h-12 w-12 rounded-full bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm transition-all duration-300 ${
+                  selectedProject === projects.length - 1
+                    ? "opacity-50 cursor-not-allowed"
+                    : "hover:text-primary-500 hover:scale-110 hover:shadow-lg"
+                }`}
+              >
+                <FaChevronRight className="h-5 w-5" />
+              </Button>
+            </div>
             <DialogHeader>
               <DialogTitle className="text-3xl font-bold text-gray-900 dark:text-white relative inline-block">
                 {projects[selectedProject].title}
@@ -243,7 +338,10 @@ export default function Project({ projects }: { projects: Projects[] }) {
             {/* Project images carousel in dialog */}
             {projects[selectedProject].images &&
             projects[selectedProject].images.length > 0 ? (
-              <div className="w-full h-80 overflow-hidden my-6">
+              <div className="w-full h-80 overflow-hidden my-6 relative">
+                {isImageLoading && (
+                  <div className="absolute inset-0 bg-gray-100 dark:bg-gray-800 animate-pulse z-10" />
+                )}
                 <Carousel
                   showArrows={true}
                   showStatus={false}
@@ -259,19 +357,28 @@ export default function Project({ projects }: { projects: Projects[] }) {
                         alt={`${projects[selectedProject].title} screenshot ${
                           idx + 1
                         }`}
-                        className="w-full h-80 object-contain"
+                        className={`w-full h-80 object-contain transition-opacity duration-300 ${
+                          isImageLoading ? "opacity-0" : "opacity-100"
+                        }`}
+                        onLoad={() => setIsImageLoading(false)}
                       />
                     </div>
                   ))}
                 </Carousel>
               </div>
             ) : projects[selectedProject].image ? (
-              <div className="w-full h-80 overflow-hidden my-6">
+              <div className="w-full h-80 overflow-hidden my-6 relative">
+                {isImageLoading && (
+                  <div className="absolute inset-0 bg-gray-100 dark:bg-gray-800 animate-pulse z-10" />
+                )}
                 <ImageWithFallback
                   src={projects[selectedProject].image}
                   fallbackSrc={fallbackSrc}
                   alt={`${projects[selectedProject].title} screenshot`}
-                  className="w-full h-80 object-contain"
+                  className={`w-full h-80 object-contain transition-opacity duration-300 ${
+                    isImageLoading ? "opacity-0" : "opacity-100"
+                  }`}
+                  onLoad={() => setIsImageLoading(false)}
                 />
               </div>
             ) : null}
