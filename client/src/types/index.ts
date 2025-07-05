@@ -13,6 +13,7 @@ export interface PersonalInfo {
   medium: string;
   profileImage?: string;
   resumeLink?: string;
+  youtubeVideoUrl?: string;
 }
 
 export interface Jobs {

@@ -114,6 +114,7 @@ async function fetchPortfolioData(googleSheet) {
           medium: row.get("medium"),
           profileImage: row.get("profileImage") || "",
           resumeLink: row.get("resumeLink") || "",
+          youtubeVideoUrl: row.get("youtubeVideoUrl") || "",
         };
       }
     }

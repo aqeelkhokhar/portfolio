@@ -8,6 +8,7 @@ import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
 import Project from "@/components/Project";
 import Skills from "@/components/Skills";
+import VideoIntro from "@/components/VideoIntro";
 import { useActiveSection } from "@/hooks/useActiveSection";
 import AppointmentBooking from "../components/AppointmentBooking";
 import { usePortfolio } from "../hooks/usePortfolioData";
@@ -62,6 +63,15 @@ export default function Home() {
           <AppointmentBooking />
         </AnimatedSection>
       </main>
+      
+      {/* Video Introduction Component - Only show if YouTube URL exists */}
+      {personalInfo?.youtubeVideoUrl && (
+        <VideoIntro 
+          youtubeUrl={personalInfo.youtubeVideoUrl} 
+          title="Meet Raheel Butt - Introduction"
+        />
+      )}
+      
       {socialLinks?.length > 0 && personalInfo && (
         <Footer socialLinks={socialLinks} personalInfo={personalInfo} />
       )}
